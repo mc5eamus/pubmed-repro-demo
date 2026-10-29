@@ -1,0 +1,99 @@
+{
+  "seed": 42,
+  "splits": 100,
+  "test_size": 0.2,
+  "cv_folds": 5,
+  "cv_scoring": "roc_auc",
+  "smote_sampling_strategy": 1.0,
+  "undersampling_strategy": 1.0,
+  "smote_neighbors": 5,
+  "threshold": 0.5,
+  "bootstrap_replicates": 1000,
+  "neural_network": {
+    "hidden_layers": [64, 32],
+    "dropout": 0.2,
+    "learning_rate": 0.001,
+    "batch_size": 512,
+    "epochs": 25,
+    "early_stopping_patience": 5,
+    "num_threads": 1
+  },
+  "published_hyperparameters": {
+    "framingham": {
+      "logistic_regression": {
+        "C": 0.01,
+        "penalty": "l2",
+        "solver": "liblinear"
+      },
+      "random_forest": {
+        "criterion": "gini",
+        "max_depth": 8,
+        "max_features": "sqrt",
+        "n_estimators": 75
+      },
+      "knn": {
+        "metric": "manhattan",
+        "n_neighbors": 15,
+        "weights": "uniform"
+      },
+      "xgboost": {
+        "colsample_bytree": 0.5,
+        "learning_rate": 0.01,
+        "max_depth": 3,
+        "min_child_weight": 1,
+        "n_estimators": 50,
+        "subsample": 0.5
+      }
+    },
+    "cleveland": {
+      "logistic_regression": {
+        "C": 0.001,
+        "penalty": "l2",
+        "solver": "liblinear"
+      },
+      "random_forest": {
+        "criterion": "entropy",
+        "max_depth": 12,
+        "max_features": "sqrt",
+        "n_estimators": 200
+      },
+      "knn": {
+        "metric": "manhattan",
+        "n_neighbors": 15,
+        "weights": "distance"
+      },
+      "xgboost": {
+        "colsample_bytree": 0.5,
+        "learning_rate": 0.1,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "n_estimators": 50,
+        "subsample": 0.8
+      }
+    }
+  },
+  "tuning_grids": {
+    "logistic_regression": {
+      "classifier__C": [0.001, 0.01, 0.1, 1.0]
+    },
+    "random_forest": {
+      "classifier__criterion": ["gini", "entropy"],
+      "classifier__max_depth": [8, 12],
+      "classifier__max_features": ["sqrt"],
+      "classifier__n_estimators": [75, 200]
+    },
+    "knn": {
+      "classifier__metric": ["manhattan", "euclidean"],
+      "classifier__n_neighbors": [5, 15, 25],
+      "classifier__weights": ["uniform", "distance"]
+    },
+    "xgboost": {
+      "classifier__colsample_bytree": [0.5],
+      "classifier__learning_rate": [0.01, 0.1],
+      "classifier__max_depth": [3],
+      "classifier__min_child_weight": [1, 3],
+      "classifier__n_estimators": [50],
+      "classifier__subsample": [0.5, 0.8]
+    }
+  }
+}
